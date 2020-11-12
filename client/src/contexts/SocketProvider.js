@@ -10,8 +10,10 @@ export function useSocket() {
 export function SocketProvider({ id, children }) {
   const [socket, setSocket] = useState();
 
+  const serverUrl = process.env.VUE_APP_SERVER_URL || 'http://localhost:5000';
+
   useEffect(() => {
-    const newSocket = io('http://localhost:5000', { query: { id } });
+    const newSocket = io(serverUrl, { query: { id } });
     setSocket(newSocket);
 
     return () => newSocket.close();
